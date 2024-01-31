@@ -5,24 +5,25 @@
 
    Sample YAML for a basic Deployment:
 
-   ```yaml
-   apiVersion: apps/v1
-   kind: Deployment
-   metadata:
-     name: example-deployment
-   spec:
-     replicas: 3
-     selector:
-       matchLabels:
-         app: example
-     template:
-       metadata:
-         labels:
-           app: example
-       spec:
-         containers:
-         - name: nginx
-           image: nginx:latest
+   ```apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:latest
+        ports:
+        - containerPort: 8080
    ```
 
 2. **Service**:
@@ -31,17 +32,17 @@
    Sample YAML for a basic Service (LoadBalancer type):
 
    ```yaml
-   apiVersion: v1
-   kind: Service
-   metadata:
-     name: example-service
-   spec:
-     selector:
-       app: example
-     ports:
-       - protocol: TCP
-         port: 80
-         targetPort: 80
+  apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  selector:
+    app: nginx
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
      type: LoadBalancer
    ```
 
